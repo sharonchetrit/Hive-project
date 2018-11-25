@@ -7,4 +7,3 @@ urlpatterns = [
 
 
 
-# coucou sharon 
