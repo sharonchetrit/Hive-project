@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class UserProfile(models.Model):
-	user = models.ForeignKey(User, unique=True, on_delete= models.CASCADE)
+	user = models.OneToOneField(User, unique=True, on_delete= models.CASCADE)
 	bio = models.CharField(max_length=500)
-	profile_pic = models.ImageField(upload_to='', blank=True)
+	# profile_pic = models.ImageField(upload_to='', blank=True)
 	# follows = models.ManyToManyField("self", related_name= 'followed_by')
 
 	def __repr__(self):

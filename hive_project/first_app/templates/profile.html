@@ -5,9 +5,9 @@
 
 <h1>{{ user.username }}</h1>
 <h5>{{ user.bio }}</h5>
-{% for tweet in tweets %}
+{% for post in posts %}
 <div class="tweet">
-	<p>{{ tweet.text }}</p>
+	<p>{{ post.text }}</p>
 </div>
  {% endfor %}
 }

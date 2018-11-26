@@ -6,7 +6,9 @@ django.setup()
 
 import random
 from faker import Faker
-from first_app.models import User, UserProfile ,Post
+from first_app.models import UserProfile ,Post
+from django.contrib.auth.models import User
+
 
 
 fakegen = Faker()
