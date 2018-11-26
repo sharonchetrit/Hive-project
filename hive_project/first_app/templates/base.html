@@ -1,9 +1,26 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html>
 <head>
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles_base.css' %}">
+
 	<title>{% block header_title %}{% endblock %}</title>
 </head>
 <body>
+
+<ul>
+  <li class="logo">LOGO</a></li>
+  <li class="login">Log In</li>
+  <li class="signup">Sign Up</li>
+</ul>
+
+<div id="content">
+
+      {% block content %}
+
+      {% endblock %}
+</div>
 
 </body>
 </html>
