@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse
 from . import forms
 from first_app.models import UserProfile, Post
@@ -31,3 +31,16 @@ def signup(request):
 		form = forms.SignUpForm()
 
 	return render(request, 'signup.html', {'form': form})
+
+def user_login(request):
+	context = {}
+	if request.method == 'POST':
+		pass
+	else:
+		return render(request, "login.html", context)
+
+def success(request):
+	pass
+
+def user_logout(request):
+	pass
