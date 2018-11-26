@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 from django.shortcuts import render
 from first_app.models import UserProfile, Post
-#from . import forms
-import datetime
-=======
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse
@@ -12,22 +8,15 @@ from first_app.models import UserProfile, Post
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
->>>>>>> signup
 
 # Create your views here.
 
 def index(request):
-<<<<<<< HEAD
 	posts = Post.objects.all().order_by('-date')[:30]
 	return render(request, 'index.html', { 'posts': posts })
 
-def signup(request):
-	return render(request, 'signup.html') 
-
 def login(request):
 	return render(request, 'login.html')
-=======
-	return render(request, 'index.html')
 
 def profile(request, user_id):
 	user = User.objects.get(id=user_id)
@@ -48,7 +37,6 @@ def signup(request):
 		form = forms.SignUpForm()
 
 	return render(request, 'signup.html', {'form': form})
-<<<<<<< HEAD
 
 def user_login(request):
 	context = {}
@@ -57,11 +45,4 @@ def user_login(request):
 	else:
 		return render(request, "login.html", context)
 
-def success(request):
-	pass
 
-def user_logout(request):
-	pass
-=======
->>>>>>> signup
->>>>>>> master
