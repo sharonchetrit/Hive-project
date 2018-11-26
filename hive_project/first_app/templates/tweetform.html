@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form Page</title>
+</head>
+<body>
+
+  <h1>Tweet for {{ user.username }}</h1>
+  <form method="POST">
+  	{{ form.as_p }}
+  	{% csrf_token %}
+  	<input type="submit" name="send" value= "Tweet" class="btn btn-outline-primary">
+  </form>
+  
+  
+
+</body>
+</html>
