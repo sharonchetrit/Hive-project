@@ -3,8 +3,23 @@
 <h1>HomePage</h1>
 
 {% block header_title %}Homepage{% endblock %}
+
+
 {% block content %}
 
+<<<<<<< HEAD
 <title>Home</title>
+=======
+<div class ='container'>
+    <h1>HomePage</h1>
+>>>>>>> master
 
+    {% for post in posts %}
+    <div class ="tweet">
+      <p>{{ post.text }}</p>
+      <h5> {{ post.user.user.first_name }}_{{ post.user.user.last_name }} 
+        <span>- {{ post.date }}</span>
+      </h5>
+    </div>
+	{% endfor %}
 {% endblock %}
