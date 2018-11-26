@@ -1,0 +1,15 @@
+{%extends "base.html"%}
+
+{% block header_title %}Profile{% endblock %}
+{% block content %}
+
+<h1>{{ user.username }}</h1>
+<h5>{{ user.bio }}</h5>
+{% for tweet in tweets %}
+<div class="tweet">
+	<p>{{ tweet.text }}</p>
+</div>
+ {% endfor %}
+}
+
+{% endblock %}
