@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class UserProfile(models.Model):
+class UserProfileInfo(models.Model):
 	user = models.OneToOneField(User, unique=True, on_delete= models.CASCADE)
 	bio = models.CharField(max_length=500)
 	# profile_pic = models.ImageField(upload_to='', blank=True)
@@ -18,7 +18,7 @@ class UserProfile(models.Model):
 class Post(models.Model):
 	text = models.CharField(max_length=500)
 	date = models.DateField()
-	user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+	user = models.ForeignKey(UserProfileInfo, on_delete=models.CASCADE)
 
 	def __repr__(self):
 		return "<Post {}>".format(self.text)

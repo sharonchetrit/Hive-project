@@ -2,18 +2,17 @@
 
 {% block header_title %}SIGNUP{% endblock %}
 {% block content %}
+{% if registered %}
 
-<h1>SIGNUP</h1>
+	<h1>Thanks for registration !</h1>
+{% else %}
+	<h2>SignUp</h2>>
+	<form enctype="multipart/form-data" method="post">
+		{% csrf_token %}
+		{{ user_form.as_p }}
+		{{ profile_form.as_p }}
+		<input type="submit" value="signup">
+	</form>
 
-{% block content %}
-<h2>SignUp</h2>>
-<form method="post">
-	{% csrf_token %}
-	{{ form.as_p }}
-	<button type="submit">Sign up</button>
-
-
-</form>
-
-
+{% endif %}
 {% endblock %}
