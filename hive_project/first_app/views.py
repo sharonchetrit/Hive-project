@@ -34,6 +34,8 @@ def signup(request):
       profile = profile_form.save(commit=False)
       profile.user = user
 
+      # if 'profile_pic' in request.FILES:
+      #   profile.profile_pic = request.FILES['profile_pic']
       profile.save()
       registered = True
 
@@ -49,6 +51,8 @@ def signup(request):
                 'profile_form': profile_form,
                 'registered': registered
                 })
+
+
 
 # def signup(request):
 #   if request.method == 'POST':
