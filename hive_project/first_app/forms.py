@@ -5,7 +5,7 @@ from django.core import validators
 
 
 class UserForm(forms.ModelForm):
-	password = forms.CharField(widget=forms.PasswordInput())
+	password = forms.CharField(widget=forms.PasswordInput(), min_length=6)
 
 	class Meta():
 		model = User
