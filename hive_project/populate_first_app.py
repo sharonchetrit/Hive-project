@@ -6,7 +6,7 @@ django.setup()
 
 import random
 from faker import Faker
-from first_app.models import UserProfile ,Post
+from first_app.models import UserProfileInfo ,Post
 from django.contrib.auth.models import User
 
 
@@ -25,7 +25,7 @@ def populate(N=10):
 
   #def create_user_profile_info():
     fake_bio = fakegen.text(max_nb_chars=160)
-    userprofile_info = UserProfile.objects.get_or_create(user = user, bio = fake_bio)[0]
+    userprofile_info = UserProfileInfo.objects.get_or_create(user = user, bio = fake_bio)[0]
 
     for nmber_post in range(random.randint(0,25)):
   #def create_tweet():

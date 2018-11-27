@@ -3,12 +3,13 @@ from django.http import HttpResponse
 from . import forms
 from first_app.models import UserProfileInfo, Post
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 # Create your views here.
 
 def index(request):
-    posts = Post.objects.all().order_by('-date')[:30]
+    posts = Post.objects.all()
     return render(request, 'index.html', { 'posts': posts })
 
 def login(request):
@@ -38,6 +39,7 @@ def signup(request):
       #   profile.profile_pic = request.FILES['profile_pic']
       profile.save()
       registered = True
+      return redirect(reverse('first_app:index'))
 
     else:
       print(user_form.errors, profile_form.errors)
