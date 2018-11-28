@@ -1,59 +1,112 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from . import forms
 from first_app.models import UserProfileInfo, Post
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 
 # Create your views here.
 
 def index(request):
-    posts = Post.objects.all()
-    return render(request, 'index.html', { 'posts': posts })
+	posts = Post.objects.all()
+	return render(request, 'index.html', { 'posts': posts })
 
-def login(request):
-    return render(request, 'login.html')
+# def user_login(request):
+# 	context = {}
+# 	if request.method == 'POST':
+# 		username = request.POST['username']
+# 		password = request.POST['password']
+# 		user = authenticate(request, username=username, password=password)
+# 		if user:
+# 			login(request, user)
+# 			return HttpResponseRedirect(reverse('user_success'))
+# 		else:
+# 			context["error"] = "Provide valid credentials"
+# 			return render(request, 'registration/login.html', context)
+# 	else:
+# 		return render(request, 'registration/login.html', context)
 
-def profile(request, user_id):
-    user = User.objects.get(id=user_id)
-    posts = Post.objects.all()
-    return render(request, 'profile.html', {'user': user, 'posts': posts})
+
+
+def view_profile(request):
+	args = {'user':request.user}
+	return render(request, 'profile.html', args)
+
+	# user = User.objects.get(id=user_id)
+	# posts = Post.objects.all()
 
 def signup(request):
-  registered = False
+	registered = False
 
-  if request.method == 'POST':
-    user_form = forms.UserForm(data=request.POST)
-    profile_form = forms.UserProfileInfoForm(data=request.POST)
+	if request.method == 'POST':
+		user_form = forms.UserForm(data=request.POST)
+		profile_form = forms.UserProfileInfoForm(data=request.POST)
 
-    if user_form.is_valid() and profile_form.is_valid():
-      user = user_form.save()
-      user.set_password(user.set_password)
-      user.save()
+		if user_form.is_valid() and profile_form.is_valid():
+		  user = user_form.save()
 
-      profile = profile_form.save(commit=False)
-      profile.user = user
+		  raw_password = user_form.cleaned_data.get('password')
+		  user.set_password(raw_password)
+		  user.save()
 
-      # if 'profile_pic' in request.FILES:
-      #   profile.profile_pic = request.FILES['profile_pic']
-      profile.save()
-      registered = True
-      return redirect(reverse('first_app:index'))
+		  #user = authenticate(username=user.username, password=raw_password)
+		  #login(request, user)
+	   
 
-    else:
-      print(user_form.errors, profile_form.errors)
+		  profile = profile_form.save(commit=False)
+		  profile.user = user
 
-  else:
-    user_form = forms.UserForm()
-    profile_form = forms.UserProfileInfoForm()
+		  # if 'profile_pic' in request.FILES:
+		  #   profile.profile_pic = request.FILES['profile_pic']
+		  profile.save()
+		  registered = True
+		  return redirect(reverse('first_app:index'))
 
-  return render(request, 'signup.html', {
-                'user_form': user_form,
-                'profile_form': profile_form,
-                'registered': registered
-                })
+		else:
+		  print(user_form.errors, profile_form.errors)
 
+	else:
+	  user_form = forms.UserForm()
+	  profile_form = forms.UserProfileInfoForm()
+
+	return render(request, 'signup.html', {
+				  'user_form': user_form,
+				  'profile_form': profile_form,
+				  'registered': registered
+				  })
+
+
+def edit_profile(request):
+	if request.method == 'POST':
+		form = forms.UserForm(request.POST, instance=request.user)
+
+		if form.is_valid():
+			form.save()
+			return redirect('account/profile')
+
+	else:
+		form = forms.EditProfileForm(user=request.user)
+		return render(request, 'accounts/edit_profile.html', {'form': form})
+
+
+def change_password(request):
+	if request.method == 'POST':
+		form = forms.PasswordChangeForm(data=request.POST, user=request.user)
+
+		if form.is_valid():
+			form.save()
+			update_session_auth_hash(request, form.user)
+			return redirect('account/profile')
+		else:
+			return redirect('/account/change_password')
+
+	else:
+		form = PasswordChangeForm(user=request.user)
+		return render(request, 'accounts/change_password.html', {'form': form})
 
 
 # def signup(request):
