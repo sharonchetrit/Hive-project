@@ -16,9 +16,15 @@ class UserProfileInfoForm(forms.ModelForm):
 		model = UserProfileInfo
 		fields = ('bio',)
 
-	def clean_email(self):
-		email = self.cleaned_data['email']
-		username = self.cleaned_data['username']
+class SignUpForm(forms.Form):
+	username = forms.CharField(max_length=20)
+	password = forms.CharField(widget=forms.PasswordInput())
+
+	def clean(self):
+		all_clean_data = super().clean()
+		return all_clean_data
+	
+
 		
 	# 	if User.objects.filter(email=email).exists():
 	# 		raise ValidationError("Email already exists")
