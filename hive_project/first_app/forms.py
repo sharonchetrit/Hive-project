@@ -2,7 +2,7 @@ from django import forms
 from first_app.models import UserProfileInfo, Post
 from django.contrib.auth.models import User
 from django.core import validators
-
+from django.contrib.auth.forms import UserChangeForm
 
 class UserForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput(), min_length=6)
