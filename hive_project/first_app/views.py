@@ -15,13 +15,8 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def index(request):
-<<<<<<< HEAD
     posts = Post.objects.all().order_by('-date')[:30]
     return render(request, 'index.html', { 'posts': posts })
-=======
-	posts = Post.objects.all()
-	return render(request, 'index.html', { 'posts': posts })
->>>>>>> 2b648bae98c844fe2aaf375bd40c0f503dbb7cd3
 
 # def user_login(request):
 # 	context = {}
