@@ -127,6 +127,6 @@ STATICFILES_DIRS = [
     STATIC_DIR
 ]
 LOGIN_REDIRECT_URL = 'first_app:index'
-LOGOUT_REDIRECT_URL = 'homepage'
+LOGOUT_REDIRECT_URL = 'first_app:logged_out'
 
 

@@ -56,6 +56,15 @@ def signup(request):
 
 
 
+def logged_out(request):
+  return render (request, 'registration/logout.html')
+
+
+
+
+
+
+
 # def signup(request):
 #   if request.method == 'POST':
 #       form = forms.SignUpForm(request.POST)
