@@ -16,13 +16,24 @@ class UserProfileInfoForm(forms.ModelForm):
 		model = UserProfileInfo
 		fields = ('bio',)
 
+# class RegistrationForm(UserCreationForm):
+# 	email = forms.EmailField(required=True)
+
 class SignUpForm(forms.Form):
 	username = forms.CharField(max_length=20)
 	password = forms.CharField(widget=forms.PasswordInput())
 
-	def clean(self):
+	def clean( self):
 		all_clean_data = super().clean()
 		return all_clean_data
+
+class EditProfileForm(UserForm):
+	class Meta():
+		model = User
+		fields = ('email',
+				  'username',
+				  'password'
+			)
 	
 
 		

@@ -25,3 +25,6 @@ class Post(models.Model):
 
 	def __str__(self):
 		return self.text
+
+class Friend(models.Model):
+	users = models.ManyToManyField(User, symmetrical=False )
