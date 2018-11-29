@@ -8,30 +8,12 @@ from django.urls import reverse
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-
-# from django.contrib.auth import UserChangeForm
-
-
-# Create your views here.
+# from django.forms import formset_factory, BaseFormSet
 
 def index(request):
     posts = Post.objects.all().order_by('-date')[:30]
     return render(request, 'index.html', { 'posts': posts })
 
-# def user_login(request):
-# 	context = {}
-# 	if request.method == 'POST':
-# 		username = request.POST['username']
-# 		password = request.POST['password']
-# 		user = authenticate(request, username=username, password=password)
-# 		if user:
-# 			login(request, user)
-# 			return HttpResponseRedirect(reverse('user_success'))
-# 		else:
-# 			context["error"] = "Provide valid credentials"
-# 			return render(request, 'registration/login.html', context)
-# 	else:
-# 		return render(request, 'registration/login.html', context)
 
 def signup(request):
 	registered = False
@@ -50,10 +32,12 @@ def signup(request):
 		  profile = profile_form.save(commit=False)
 		  profile.user = user
 
-		  # if 'profile_pic' in request.FILES:
-		  #   profile.profile_pic = request.FILES['profile_pic']
+		  if 'profile_pic' in request.FILES:
+		    profile.profile_pic = request.FILES['profile_pic']
+
 		  profile.save()
 		  registered = True
+
 		  return redirect(reverse('first_app:index'))
 
 		else:
@@ -72,11 +56,10 @@ def signup(request):
 
 def view_profile(request):
 	args = {'user':request.user}
-	return render(request, 'profile.html', args)
+	return render(request, 'profile/profile.html', args)
 
 	# user = User.objects.get(id=user_id)
 	# posts = Post.objects.all()
-
 
 
 @login_required
@@ -86,11 +69,11 @@ def edit_profile(request):
 
 		if form.is_valid():
 			form.save()
-			return redirect(reverse('profile_app:edit_profile'))
+			return redirect(reverse('profile_app:view_profile'))
 
 	else:
 		form = forms.EditProfileForm(instance=request.user)
-	return render(request, 'profile/edit_profile.html', {'form': form})
+		return render(request, 'profile/edit_profile.html', {'form': form})
 
 
 @login_required
@@ -110,26 +93,14 @@ def change_password(request):
 		return render(request, 'profile/change_password.html', {'form': form})
 
 
-# def signup(request):
-#   if request.method == 'POST':
-#       form = forms.SignUpForm(request.POST)
-#       if form.is_valid():
-#           form.save()
-#           username = form.cleaned_data.get('username')
-#           raw_password = form.cleaned_data.get('password1')
-#           user = authenticate(username=username, password=raw_password)
-#           login(request, user)
-#           return HttpResponse('Congratulation ! you created an account !')
-#   else:
-#       form = forms.SignUpForm()
+@login_required
+def account_edit(request):
+	profile_form = forms.EditProfileForm()
+	password_form = forms.PasswordChangeForm()
 
-#   return render(request, 'signup.html', {'form': form})
-
-# def user_login(request):
-#   context = {}
-#   if request.method == 'POST':
-#       pass
-#   else:
-#       return render(request, "login.html", context)
+	return render(request, 'profile/account_edit.html', {
+		'profile_form': profile_form, 
+		'password_form': password_form
+		})
 
 
