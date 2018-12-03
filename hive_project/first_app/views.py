@@ -82,6 +82,8 @@ def following(request):
 
 def follow (request):
 	pass
+	
+
 	# add user_profile_id insede bracket
 
 	
