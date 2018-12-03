@@ -1,0 +1,19 @@
+{%extends "base.html"%}
+
+{% block header_title %}
+<title>Profile</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<form method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit">Submit</button>
+		<a href="{%url 'profile_app:edit_profile' %}">Edit Profile</a>
+  		<a href="{%url 'profile_app:change_password' %}">Change Password</a>
+	</form>
+	<br>
+</div>
+
+{% endblock %}
