@@ -13,6 +13,10 @@ class UserProfileInfo(models.Model):
 	def __repr__(self):
 		return "<User {}>".format(self.user.username)
 
+	def __str__(self):
+		return self.user.username
+
+
 
 
 

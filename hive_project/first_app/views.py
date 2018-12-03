@@ -53,42 +53,43 @@ def signup(request):
                   'registered': registered
                   })
 
-
-def view_profile(request, user_id):
+@login_required
+def view_profile(request):
     # args = {'user':request.user}
-    user = User.objects.get(id=user_id)
+    user = User.objects.get(id=request.user.id)
+    profile = UserProfileInfo.objects.get(user=user)
 
-    return render(request, 'profile/profile.html', {'user': user})
+    return render(request, 'profile/profile.html', {'profile': profile})
 
 
 @login_required
-def edit_profile(request, user_id):
+def edit_profile(request):
     # if request.user.is_authenticated() and request.user.id == user.id:
-    user = request.user
-
     if request.method == 'POST':
         user_form = forms.EditProfileForm(request.POST, instance=request.user)
-        profile_form = forms.UserProfileInfoForm(request.POST, instance=request.user.profile)
-        # User.objects.filter(id=user.id).update(
-        #     first_name='first_name',
-        #     last_name='last_name',
-        #     )
+        profile_form = forms.UserProfileInfoForm(request.POST, instance=request.user)
+        User.objects.filter(id=request.user.id).update(
+            first_name='first_name',
+            last_name='last_name',
+            )
 
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            message.success(request, _('Your profile was successfully updated'))
-            return redirect(reverse('profile_app:view_profile'))
+            return redirect('profile_app:view_profile')
 
         else:
-            message.error(request, _('Please correct the error bellow'))
+            return HttpResponse('Please correct the error bellow')
 
     else:
+        # profile = UserProfileInfo.objects.get(id=user_id)
         user_form = forms.EditProfileForm(instance=request.user)
-        profile_form = forms.UserProfileInfoForm(instance=request.user.profile)
+        profile_form = forms.UserProfileInfoForm(instance=request.user)
     
-    return render(request, 'profile/edit_profile.html', {'user_form': form, 'profile_form': profile_form})
+    return render(request, 'profile/edit_profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
+
 
 
 @login_required
@@ -97,8 +98,8 @@ def change_password(request):
         form = forms.PasswordChangeForm(data=request.POST, user=request.user)
 
         if form.is_valid():
-            form.save()
-            update_session_auth_hash(request, form.user)
+            user = form.save()
+            update_session_auth_hash(request, user)
             return redirect(reverse('profile_app:view_profile'))
         else:
             return redirect(reverse('profile_app:change_password'))
