@@ -38,12 +38,16 @@ class EditProfileForm(UserForm):
 				  'first_name',
 				  'last_name'
 			)
+		def clean(self):
+			all_clean_data = super().clean()
+			email = all_clean_data['email']
+			email_check = all_clean_data['email_check']
+
+			if email != email_check:
+				raise forms.ValidationError('Please, make sure emails match')
+	
 
 
-
-
-
-		
 	# 	if User.objects.filter(email=email).exists():
 	# 		raise ValidationError("Email already exists")
 	# 	return email
