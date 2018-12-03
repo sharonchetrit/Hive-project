@@ -1,0 +1,28 @@
+{%extends "base.html"%}
+
+<h1>HomePage</h1>
+
+{% block header_title %}All_Users{% endblock %}
+
+
+{% block content %}
+
+{% for profile in profiles %}
+    <div class ="users">
+      <p>{{ profile.user.id }}</p>
+
+      <h5> {{ profile.bio }} </h5>
+
+       {% if profile.is_followed_by_me %}
+
+       <button type="button" class="btn btn-default", name="button">UnFollow</button>
+
+       {% else %}
+
+       <button type="button" class="btn btn-default", name="button">Follow</button>
+
+	{% endif %}
+	{% endfor %}
+    </div>
+	
+{% endblock %}

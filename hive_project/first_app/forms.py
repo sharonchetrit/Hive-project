@@ -19,6 +19,20 @@ class UserProfileInfoForm(forms.ModelForm):
 	def clean_email(self):
 		email = self.cleaned_data['email']
 		username = self.cleaned_data['username']
+
+# class FollowForm(ModelForm):
+
+#     class Meta():
+#         model = UserProfileInfo
+#         fields = ('following')
+
+#       def clean(self):
+#       	#by doing this i check if the guy is in the list
+#       	following = all_clean_data['following']
+
+#       if User.objects.filter(username=self.cleaned_data['username']).exists():
+      	
+
 		
 	# 	if User.objects.filter(email=email).exists():
 	# 		raise ValidationError("Email already exists")
