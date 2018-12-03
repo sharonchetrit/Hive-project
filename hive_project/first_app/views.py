@@ -102,34 +102,6 @@ def follow (request):
 
 
 
-
-# def signup(request):
-#   if request.method == 'POST':
-#       form = forms.SignUpForm(request.POST)
-#       if form.is_valid():
-#           form.save()
-#           username = form.cleaned_data.get('username')
-#           raw_password = form.cleaned_data.get('password1')
-#           user = authenticate(username=username, password=raw_password)
-#           login(request, user)
-#           return HttpResponse('Congratulation ! you created an account !')
-#   else:
-#       form = forms.SignUpForm()
-
-#   return render(request, 'signup.html', {'form': form})
-
-# def user_login(request):
-#   context = {}
-#   if request.method == 'POST':
-#       pass
-#   else:
-#       return render(request, "login.html", context)
-
-
-
-
-
-
 @login_required
 def edit_profile(request):
 	# if request.user.is_authenticated() and request.user.id == user.id:
@@ -140,6 +112,8 @@ def edit_profile(request):
 			first_name='first_name',
 			last_name='last_name',
 			)
+		UserProfileInfo.objects.filter(id=request.user.id).update(
+			bio='bio')
 
 
 		if user_form.is_valid() and profile_form.is_valid():
@@ -157,7 +131,50 @@ def edit_profile(request):
 	
 	return render(request, 'profile/edit_profile.html', {'user_form': user_form, 'profile_form': profile_form})
 
+@login_required
+def post_new(request):
+	if request.method == 'POST':
+		form = forms.PostForm(request.POST)
 
+		if form.is_valid():
+			post = form.save(commit=False)
+			post.author = request.user
+			post.published_date = timezone.now()
+			post.save()
+
+			return redirect('first_app:post_detail')
+
+	else:
+		form = forms.PostForm()
+	return render(request, 'post_edit.html', {'form': form})
+
+@login_required
+def post_edit(request):
+	# post = forms.PostForm(request.POST, instance=request.user)
+	if request.method == 'POST':
+		post_form = forms.PostForm(request.POST, instance=request.user)
+		if post_form.is_valid():
+			user_post = post_form.save(commit=False)
+			user_post.author = request.user
+			user_post.published_date = timezone.now()
+			user_post.save()
+			return redirect('first_app:post_detail')
+		else:
+			return HttpResponse('You cannot work')
+	else:
+		post_form = forms.PostForm(instance=request.user)
+	return render(request, 'post_edit.html', {'post_form': post_form})
+
+
+
+
+def post_list(request):
+	posts = Post.objects.all().order_by('-date')[:30]
+	return render(request, 'index.html', { 'posts': posts })
+
+
+def post_detail(request):
+	pass
 
 
 @login_required
@@ -190,44 +207,4 @@ def account_edit(request):
 		})
 
 
-def post_new(request):
-    if request.method == 'POST':
-        form = forms.PostForm(request.POST)
-
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-
-            return redirect('first_app:post_detail', pk=post.pk)
-
-    else:
-        form = forms.PostForm()
-    return render(request, 'post_edit.html', {'form': form})
-
-
-def post_edit(request):
-    post = forms.PostForm(request.POST)
-    if request.method == 'POST':
-        form = forms.PostForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect('first_app:post_detail')
-    else:
-        form = forms.PostForm(request.post)
-    return render(request, 'post_edit.html', {'form': form})
-
-
-
-
-def post_list(request):
-    pass
-
-
-def post_detail(request):
-    pass
 

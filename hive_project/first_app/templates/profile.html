@@ -3,12 +3,14 @@
 {% block header_title %}Profile{% endblock %}
 {% block content %}
 <div class="container">
-	<h1>Profile</h1>
+	<h1>Profile 123</h1>
 	
 	<p>{{ user }}</p>
-	<p>{{ user.first_name }}</p>
-	<p>{{ user.last_name }}</p>
-	<p>{{ user.email }}</p>
+	first_name: <p>{{ user.first_name }}</p>
+	last_name: <p>{{ user.last_name }}</p>
+	email: <p>{{ user.email }}</p>\
+	bio: <p>{{ bio }}</p>
+
 	
 </div>
 
