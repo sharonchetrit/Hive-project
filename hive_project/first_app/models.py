@@ -17,9 +17,6 @@ class UserProfileInfo(models.Model):
 		return self.user.username
 
 
-
-
-
 class Post(models.Model):
 	text = models.CharField(max_length=500)
 	date = models.DateField()
