@@ -15,6 +15,13 @@
 <ul>
   <li class="logo"><a href="{%url 'first_app:index' %}">LOGO</a></li>
   <li class="signup"><a href="{%url 'first_app:signup' %}">SIGN UP</a></li>
+  {% if user.is_authenticated %}
+  <li class="login"><a href="{% url 'logout' %}">Logout</a></li>
+
+  {% else %}
+   <li class="logout"><a href="{% url 'login' %}">LogIn</a></li>
+  {% endif %}
+
 </ul>
 
 <div id="content">

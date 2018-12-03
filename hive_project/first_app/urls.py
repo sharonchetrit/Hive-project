@@ -3,7 +3,6 @@ from . import views
 from . import forms
 from django.conf.urls import url, include
 
-
 app_name = 'first_app'
 
 urlpatterns = [
@@ -17,6 +16,9 @@ urlpatterns = [
 	path('post/detail', views.post_detail, name='post_detail'),
 	path('post/list', views.post_list, name='post_list'),
 	path('post/edit/', views.post_edit, name='post_edit'),
+	path('logged_out/', views.logged_out, name='logged_out'),
+
 ]
+# first_app/follow/<int:user_profile_id>
 
 
