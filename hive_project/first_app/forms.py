@@ -18,8 +18,6 @@ class UserProfileInfoForm(forms.ModelForm):
 		model = UserProfileInfo
 		fields = ('bio', 'profile_pic')
 
-# class RegistrationForm(UserCreationForm):
-# 	email = forms.EmailField(required=True)
 
 class SignUpForm(forms.Form):
 	username = forms.CharField(max_length=20)
@@ -38,6 +36,12 @@ class EditProfileForm(UserForm):
 				  'first_name',
 				  'last_name'
 			)
+
+class PostForm(forms.ModelForm):
+	class Meta:
+		model = Post
+		fields = ['text']
+
 	# def clean(self):
 	# 	all_clean_data = super().clean()
 		# email = all_clean_data['email']
@@ -52,20 +56,6 @@ class EditProfileForm(UserForm):
 	# 		raise ValidationError("Email already exists")
 	# 	return email
 
-# class SignUpForm(forms.ModelForm):
-# 	first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
-# 	last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
-# 	email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email adress.')
-# 	botcatcher = forms.CharField(required=False, widget=forms.HiddenInput, validators=[validators.MaxLengthValidator(0)])
-
-	
-# 	class Meta():
-# 		model = User
-# 		fields = ('username', 
-# 				  'first_name', 
-# 				  'last_name', 
-# 				  'email',
-# 				  'password')
 
 # 	def clean(self):
 	

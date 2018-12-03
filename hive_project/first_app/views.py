@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from . import forms
 from first_app.models import UserProfileInfo, Post
@@ -8,6 +8,9 @@ from django.urls import reverse
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+
+
 # from django.forms import formset_factory, BaseFormSet
 
 def index(request):
@@ -186,4 +189,45 @@ def account_edit(request):
 		'password_form': password_form
 		})
 
+
+def post_new(request):
+    if request.method == 'POST':
+        form = forms.PostForm(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+
+            return redirect('first_app:post_detail', pk=post.pk)
+
+    else:
+        form = forms.PostForm()
+    return render(request, 'post_edit.html', {'form': form})
+
+
+def post_edit(request):
+    post = forms.PostForm(request.POST)
+    if request.method == 'POST':
+        form = forms.PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('first_app:post_detail')
+    else:
+        form = forms.PostForm(request.post)
+    return render(request, 'post_edit.html', {'form': form})
+
+
+
+
+def post_list(request):
+    pass
+
+
+def post_detail(request):
+    pass
 
