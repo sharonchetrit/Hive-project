@@ -7,15 +7,19 @@ from django.contrib.auth.models import User
 class UserProfileInfo(models.Model):
 	user = models.OneToOneField(User, unique=True, on_delete= models.CASCADE)
 	bio = models.CharField(max_length=500)
-	profile_pic = models.ImageField(default= 'default.jpg', upload_to='profile_pics', blank=True, null=True)
-	# follows = models.ManyToManyField("self", related_name= 'followed_by')
+	profile_pic = models.ImageField(upload_to='profile_pics', blank=True)
+	following = models.ManyToManyField(User, related_name='followers' ,symmetrical=False )
 
 	def __repr__(self):
 		return "<User {}>".format(self.user.username)
 
 	def __str__(self):
+<<<<<<< HEAD
 		return self.user.username
 
+=======
+		return "{}".format(self.user.email)
+>>>>>>> master
 
 class Post(models.Model):
 	text = models.CharField(max_length=500)
