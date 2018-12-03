@@ -14,12 +14,7 @@ class UserProfileInfo(models.Model):
 		return "<User {}>".format(self.user.username)
 
 	def __str__(self):
-<<<<<<< HEAD
 		return self.user.username
-
-=======
-		return "{}".format(self.user.email)
->>>>>>> master
 
 class Post(models.Model):
 	text = models.CharField(max_length=500)
