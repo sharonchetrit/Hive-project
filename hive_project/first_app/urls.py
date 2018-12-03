@@ -12,14 +12,11 @@ urlpatterns = [
 	path('profile/edit/', views.edit_profile, name='edit_profile'),
 	path('change/password', views.change_password, name='change_password'),
 	path('account/edit', views.account_edit, name='acccount_edit'),
-<<<<<<< HEAD
 	path('post/new', views.post_new, name='post_new'),
 	path('post/detail', views.post_detail, name='post_detail'),
 	path('post/list', views.post_list, name='post_list'),
 	path('post/edit/', views.post_edit, name='post_edit'),
-=======
 	path('logged_out/', views.logged_out, name='logged_out'),
->>>>>>> master
 ]
 # first_app/follow/<int:user_profile_id>
 
