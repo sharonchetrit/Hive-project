@@ -2,6 +2,8 @@ from django import forms
 from first_app.models import UserProfileInfo, Post
 from django.contrib.auth.models import User
 from django.core import validators
+# from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 class UserForm(forms.ModelForm):
@@ -14,26 +16,38 @@ class UserForm(forms.ModelForm):
 class UserProfileInfoForm(forms.ModelForm):
 	class Meta():
 		model = UserProfileInfo
-		fields = ('bio',)
+		fields = ('bio', 'profile_pic')
 
-	def clean_email(self):
-		email = self.cleaned_data['email']
-		username = self.cleaned_data['username']
+# class RegistrationForm(UserCreationForm):
+# 	email = forms.EmailField(required=True)
 
-# class FollowForm(ModelForm):
+class SignUpForm(forms.Form):
+	username = forms.CharField(max_length=20)
+	password = forms.CharField(widget=forms.PasswordInput())
 
-#     class Meta():
-#         model = UserProfileInfo
-#         fields = ('following')
+	def clean( self):
+		all_clean_data = super().clean()
+		return all_clean_data
 
-#       def clean(self):
-#       	#by doing this i check if the guy is in the list
-#       	following = all_clean_data['following']
+class EditProfileForm(UserForm):
+	password = None
+	class Meta():
+		model = User
+		fields = ('email',
+				  'username',
+				  'first_name',
+				  'last_name'
+			)
+	# def clean(self):
+	# 	all_clean_data = super().clean()
+		# email = all_clean_data['email']
+		# email_check = all_clean_data['email_check']
 
-#       if User.objects.filter(username=self.cleaned_data['username']).exists():
-      	
+		# if email != email_check:
+		# 	raise forms.ValidationError('Please, make sure emails match')
+	
 
-		
+
 	# 	if User.objects.filter(email=email).exists():
 	# 		raise ValidationError("Email already exists")
 	# 	return email
