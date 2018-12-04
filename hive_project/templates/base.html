@@ -19,6 +19,8 @@
 
   {% if user.is_authenticated %}
   <li class="login"><a href="{% url 'logout' %}">Logout</a></li>
+  <li class="all_users"><a href="{% url 'profile_app:all_profiles' %}">Get New Friends</a></li>
+
 
   {% else %}
    <li class="logout"><a href="{% url 'login' %}">LogIn</a></li>

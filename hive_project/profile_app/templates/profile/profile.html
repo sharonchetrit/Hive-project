@@ -11,8 +11,16 @@
 		<p>{{ profile.user.last_name }}</p>
 		<p>{{ user.email }}</p>
 		<p>{{ profile.bio }}</p>
-		<p>{{profile.profile_pic}}</p>
+		<img src="getthepix">
+
 	{% endif %}
+
+	{% for post in posts %}
+	<p>gars sur</p>
+	<p>{{post.text}}</p>
+	<p>{{post.date}}</p>
+
+	{% endfor %}
 </div>
 
 
