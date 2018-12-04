@@ -20,10 +20,10 @@ class Post(models.Model):
 	text = models.TextField()
 	date = models.DateField()
 	user = models.ForeignKey(UserProfileInfo, on_delete=models.CASCADE)
-	like = models.ManyToManyField(User, related_name='likes', blank=True)
+	# like = models.ManyToManyField(User, related_name='likes', blank=True)
 
-	def __repr__(self):
-		return "<Post {}>".format(self.text)
+	# def __repr__(self):
+	# 	return "<Post {}>".format(self.text)
 
 	def __str__(self):
 		return self.text

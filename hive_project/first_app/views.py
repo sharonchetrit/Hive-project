@@ -20,15 +20,7 @@ def index(request):
 def login(request):
 	return render(request, 'login.html')
 
-@login_required
-def view_profile(request):
-	user_id = request.user.id
-	user = User.objects.get(id=request.user.id)
-	profile = UserProfileInfo.objects.get(user=user)
-	posts = Post.objects.get(id=user_id)
 
-
-	return render(request, 'profile/profile.html', {'profile': profile, 'posts': posts})
 
 def signup(request):
 	registered = False
@@ -73,63 +65,6 @@ def signup(request):
 def logged_out(request):
 	return render (request, 'registration/logout.html')
 
-def following(request):
-	user_profile = UserProfileInfo.objects.get(id=request.user.id)
-	following = user_profile.following.all()
-	profiles = UserProfileInfo.objects.all()
-	for profile in profiles:
-		if profile.user in following:
-			profile.is_followed_by_me = True
-	return render(request, 'users_profiles.html', {
-		'profiles': profiles,
-		'following': following
-	})
-
-def follow (request):
-	pass
-	# add user_profile_id insede bracket
-
-	
-	# get user from request 
-
- #    if request.method == 'POST':
- #    	if request.user.is_authenticated():
- #        	user_logged_in_id = request.user.id
-
- #        	if user_form.is_valid() and profile_form.is_valid():
-	# # get user profile from user - 1
-	# # get U.P to follow from parameter -2
-	# # add following 1 on 2
-	# pass
-
-
-
-@login_required
-def edit_profile(request):
-	if request.method == 'POST':
-		user_form = forms.EditProfileForm(request.POST, instance=request.user)
-		profile_form = forms.UserProfileInfoForm(request.POST, instance=request.user)
-		User.objects.filter(id=request.user.id).update(
-			first_name='first_name',
-			last_name='last_name',
-			)
-		UserProfileInfo.objects.filter(id=request.user.id).update(
-			bio='bio')
-
-
-		if user_form.is_valid() and profile_form.is_valid():
-			user_form.save()
-			profile_form.save()
-			return redirect(reverse('profile_app:view_profile'))
-
-
-	else:
-		# profile = UserProfileInfo.objects.get(id=user_id)
-		user_form = forms.EditProfileForm(instance=request.user)
-		profile_form = forms.UserProfileInfoForm(instance=request.user)
-	
-	return render(request, 'profile/edit_profile.html', {'user_form': user_form, 'profile_form': profile_form})
-
 @login_required
 def post_new(request):
 	user_id = request.user.id
@@ -168,37 +103,38 @@ def post_edit(request):
 		post_form = forms.PostForm(instance=request.user)
 	return render(request, 'post_edit.html', {'post_form': post_form})
 
+def following(request):
+	user_profile = UserProfileInfo.objects.get(id=request.user.id)
+	following = user_profile.following.all()
+	profiles = UserProfileInfo.objects.all()
+	for profile in profiles:
+		if profile.user in following:
+			profile.is_followed_by_me = True
+	return render(request, 'users_profiles.html', {
+		'profiles': profiles,
+		'following': following
+	})
 
 
-
-@login_required
-def change_password(request):
-	if request.method == 'POST':
-		form = forms.PasswordChangeForm(data=request.POST, user=request.user)
-
-		if form.is_valid():
-			user = form.save()
-			update_session_auth_hash(request, user)
-			return redirect(reverse('profile_app:view_profile'))
-		else:
-			return redirect(reverse('profile_app:change_password'))
-
-	else:
-		form = PasswordChangeForm(user=request.user)
-		return render(request, 'profile/change_password.html', {'form': form})
-
-
-@login_required
-def account_edit(request):
-	profile_form = forms.EditProfileForm()
-	password_form = forms.PasswordChangeForm()
+def follow (request):
+	pass
+	# add user_profile_id insede bracket
 
 	
+	# get user from request 
 
-	return render(request, 'profile/account_edit.html', {
-		'profile_form': profile_form, 
-		'password_form': password_form
-		})
+ #    if request.method == 'POST':
+ #    	if request.user.is_authenticated():
+ #        	user_logged_in_id = request.user.id
+
+ #        	if user_form.is_valid() and profile_form.is_valid():
+	# # get user profile from user - 1
+	# # get U.P to follow from parameter -2
+	# # add following 1 on 2
+	# pass
+
+
+
 
 
 
