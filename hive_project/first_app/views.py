@@ -13,8 +13,6 @@ from django.utils import timezone
 
 
 
-# from django.forms import formset_factory, BaseFormSet
-
 def index(request):
 	posts = Post.objects.all().order_by('-date')[:30]
 	return render(request, 'index.html', { 'posts': posts })
@@ -24,11 +22,13 @@ def login(request):
 
 @login_required
 def view_profile(request):
-	# args = {'user':request.user}
+	user_id = request.user.id
 	user = User.objects.get(id=request.user.id)
 	profile = UserProfileInfo.objects.get(user=user)
+	post = Post.objects.get(id=user_id)
 
-	return render(request, 'profile/profile.html', {'profile': profile})
+
+	return render(request, 'profile/profile.html', {'profile': profile, 'post': post})
 
 def signup(request):
 	registered = False

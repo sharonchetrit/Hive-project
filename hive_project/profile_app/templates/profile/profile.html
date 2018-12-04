@@ -3,15 +3,16 @@
 {% block header_title %}Profile{% endblock %}
 {% block content %}
 <div class="container">
-	{% if user.is_authenticated %}
 		<h1>Profile</h1>
 		
 		<p>first_name: {{ profile.user.first_name }}</p>
 		<p>last_name: {{ profile.user.last_name }}</p>
 		<p>email: {{ profile.user.email }}</p>
 		<p>bio: {{ profile.bio }}</p>
-	{% endif %}
+
+		{% for post in posts %}
+		<p>{{ post.text }}</p>
 </div>
 
-
+{% endfor %}
 {% endblock %}
