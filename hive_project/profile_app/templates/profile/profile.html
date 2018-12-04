@@ -3,9 +3,9 @@
 {% block header_title %}Profile{% endblock %}
 {% block content %}
 <div class="container">
-	{% if user.is_authenticated %}
 		<h1>Profile</h1>
 		
+
 		<p>{{ profile.user.username }}</p>
 		<p>{{ profile.first_name }}</p>
 		<p>{{ profile.user.last_name }}</p>
@@ -24,4 +24,9 @@
 </div>
 
 
+		{% for post in posts %}
+		<p>{{ post.text }}</p>
+</div>
+
+{% endfor %}
 {% endblock %}

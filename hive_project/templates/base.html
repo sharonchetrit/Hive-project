@@ -13,13 +13,18 @@
 	<a href="{% url 'first_app:post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
 
 <ul>
-  <li class="logo"><a href="{%url 'first_app:index' %}">LOGO</a></li>
+  <li class="logo"><a href="{%url 'first_app:index' %}"><img src="{% static 'hive.jpg' %}"></a></li>
   <li class="signup"><a href="{%url 'first_app:signup' %}">SIGN UP</a></li>
   <li class="profile"><a href="{%url 'profile_app:view_profile' %}">profile</a></li>
 
   {% if user.is_authenticated %}
   <li class="login"><a href="{% url 'logout' %}">Logout</a></li>
+
   <li class="all_users"><a href="{% url 'profile_app:all_profiles' %}">Get New Friends</a></li>
+
+
+  <li class="edit_profile"><a href="{% url 'profile_app:edit_profile' %}">EDIT PROFILE</a></li>
+  <li class="edit_post"><a href="{% url 'first_app:post_edit'%}">EDIT POST</a></li>
 
 
   {% else %}

@@ -3,6 +3,7 @@
 {% block header_title %}Profile{% endblock %}
 {% block content %}
 <div class="container">
+<<<<<<< HEAD
 	<h1>Profile</h1>
 	
 	<p>raph{{ user }}</p>
@@ -10,6 +11,19 @@
 	<p>{{ user.last_name }}</p>
 	<p>{{ user.email }}</p>
 	
+=======
+		<h1>Profile</h1>
+		
+		<p>first_name: {{ profile.user.first_name }}</p>
+		<p>last_name: {{ profile.user.last_name }}</p>
+		<p>email: {{ profile.user.email }}</p>
+		<p>bio: {{ profile.bio }}</p>
+
+		<h2>Posts</h2>
+		{% for post in posts %}
+			<p>{{ post.text }}</p>
+		{% endfor %}
+>>>>>>> master
 </div>
 
 {% endblock %}
