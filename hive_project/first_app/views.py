@@ -36,7 +36,7 @@ def follow(request, user_id):
 	profile1.following.add(user_followed)
 	profile1.save()
 
-	return  redirect(reverse('profile_app:all_profiles'))
+	return  redirect(reverse('first_app:all_profiles'))
 
 @login_required
 def unfollow(request, user_id):
@@ -46,7 +46,7 @@ def unfollow(request, user_id):
 	profile1.following.remove(user_followed)
 	profile1.save()
 
-	return  redirect(reverse('profile_app:all_profiles'))	
+	return  redirect(reverse('first_app:all_profiles'))	
 
 
 @login_required
@@ -139,18 +139,6 @@ def post_edit(request):
 	else:
 		post_form = forms.PostForm(instance=request.user)
 	return render(request, 'post_edit.html', {'post_form': post_form})
-
-def following(request):
-	user_profile = UserProfileInfo.objects.get(id=request.user.id)
-	following = user_profile.following.all()
-	profiles = UserProfileInfo.objects.all()
-	for profile in profiles:
-		if profile.user in following:
-			profile.is_followed_by_me = True
-	return render(request, 'users_profiles.html', {
-		'profiles': profiles,
-		'following': following
-	})
 
 
 
