@@ -6,11 +6,12 @@
 	{% if user.is_authenticated %}
 		<h1>Profile</h1>
 		
-		<p>{{ user.user }}</p>
-		<p>{{ user.first_name }}</p>
-		<p>{{ user.last_name }}</p>
+		<p>{{ profile.user.username }}</p>
+		<p>{{ profile.first_name }}</p>
+		<p>{{ profile.user.last_name }}</p>
 		<p>{{ user.email }}</p>
-		<p>{{ user.profil.bio }}</p>
+		<p>{{ profile.bio }}</p>
+		<p>{{profile.profile_pic}}</p>
 	{% endif %}
 </div>
 

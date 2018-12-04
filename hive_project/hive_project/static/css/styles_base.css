@@ -22,7 +22,7 @@ ul {
     
 }
 
-.signup, .login, .logout {
+.signup, .login, .logout, .profile {
 	float: right;
 	margin: 10px 0px;
 	margin-right: 30px;
