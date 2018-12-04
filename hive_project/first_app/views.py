@@ -21,6 +21,34 @@ def login(request):
 	return render(request, 'login.html')
 
 
+@login_required
+def all_profiles(request):
+	users = User.objects.all()
+	userprofileinfo = UserProfileInfo.objects.get(user=request.user)
+	following = userprofileinfo.following.all()
+	return render(request, 'profile/all_profiles.html', {'users': users, 'following':following})
+
+@login_required
+def follow(request, user_id):
+	user_logged_in = request.user
+	user_followed = User.objects.get(id=user_id)
+	profile1 = UserProfileInfo.objects.get(user=user_logged_in)
+	profile1.following.add(user_followed)
+	profile1.save()
+
+	return  redirect(reverse('profile_app:all_profiles'))
+
+
+@login_required
+def unfollow(request, user_id):
+	user_logged_in = request.user
+	user_followed = User.objects.get(id=user_id)
+	profile1 = UserProfileInfo.objects.get(user=user_logged_in)
+	profile1.following.remove(user_followed)
+	profile1.save()
+
+	return  redirect(reverse('profile_app:all_profiles'))	
+
 
 def signup(request):
 	registered = False
@@ -64,6 +92,7 @@ def signup(request):
 
 def logged_out(request):
 	return render (request, 'registration/logout.html')
+
 
 @login_required
 def post_new(request):
@@ -115,23 +144,6 @@ def following(request):
 		'following': following
 	})
 
-
-def follow (request):
-	pass
-	# add user_profile_id insede bracket
-
-	
-	# get user from request 
-
- #    if request.method == 'POST':
- #    	if request.user.is_authenticated():
- #        	user_logged_in_id = request.user.id
-
- #        	if user_form.is_valid() and profile_form.is_valid():
-	# # get user profile from user - 1
-	# # get U.P to follow from parameter -2
-	# # add following 1 on 2
-	# pass
 
 
 
