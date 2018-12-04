@@ -17,9 +17,10 @@ class UserProfileInfo(models.Model):
 		return self.user.username
 
 class Post(models.Model):
-	text = models.CharField(max_length=500)
+	text = models.TextField()
 	date = models.DateField()
 	user = models.ForeignKey(UserProfileInfo, on_delete=models.CASCADE)
+	like = models.ManyToManyField(User, related_name='likes', blank=True)
 
 	def __repr__(self):
 		return "<Post {}>".format(self.text)

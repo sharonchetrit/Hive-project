@@ -8,7 +8,9 @@ from django.urls import reverse
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+import datetime
 from django.utils import timezone
+
 
 
 # from django.forms import formset_factory, BaseFormSet
@@ -104,7 +106,6 @@ def follow (request):
 
 @login_required
 def edit_profile(request):
-	# if request.user.is_authenticated() and request.user.id == user.id:
 	if request.method == 'POST':
 		user_form = forms.EditProfileForm(request.POST, instance=request.user)
 		profile_form = forms.UserProfileInfoForm(request.POST, instance=request.user)
@@ -119,10 +120,8 @@ def edit_profile(request):
 		if user_form.is_valid() and profile_form.is_valid():
 			user_form.save()
 			profile_form.save()
-			return redirect('profile_app:view_profile')
+			return redirect(reverse('profile_app:view_profile'))
 
-		else:
-			return HttpResponse('Please correct the error bellow')
 
 	else:
 		# profile = UserProfileInfo.objects.get(id=user_id)
@@ -133,20 +132,24 @@ def edit_profile(request):
 
 @login_required
 def post_new(request):
+	user_id = request.user.id
+	user1 = User.objects.get(id=user_id)
+	user = UserProfileInfo.objects.get(user=user1)
+	form = forms.PostForm()
+
 	if request.method == 'POST':
-		form = forms.PostForm(request.POST)
+		form = forms.PostForm(data=request.POST)
 
 		if form.is_valid():
-			post = form.save(commit=False)
-			post.author = request.user
-			post.published_date = timezone.now()
+			text = form.cleaned_data['text']
+			post = Post(text=text, user=user, date=datetime.datetime.now())
+			user.save()
 			post.save()
 
-			return redirect('first_app:post_detail')
+			return redirect('first_app:index')
 
-	else:
-		form = forms.PostForm()
-	return render(request, 'post_edit.html', {'form': form})
+	
+	return render(request, 'post_new.html', {'form': form, 'user': user})
 
 @login_required
 def post_edit(request):
@@ -154,11 +157,11 @@ def post_edit(request):
 	if request.method == 'POST':
 		post_form = forms.PostForm(request.POST, instance=request.user)
 		if post_form.is_valid():
-			user_post = post_form.save(commit=False)
-			user_post.author = request.user
-			user_post.published_date = timezone.now()
-			user_post.save()
-			return redirect('first_app:post_detail')
+			post = post_form.save(commit=False)
+			post.author = request.user
+			post.published_date = timezone.now()
+			post.save()
+			return redirect('first_app:post_edit')
 		else:
 			return HttpResponse('You cannot work')
 	else:
@@ -166,15 +169,6 @@ def post_edit(request):
 	return render(request, 'post_edit.html', {'post_form': post_form})
 
 
-
-
-def post_list(request):
-	posts = Post.objects.all().order_by('-date')[:30]
-	return render(request, 'index.html', { 'posts': posts })
-
-
-def post_detail(request):
-	pass
 
 
 @login_required
