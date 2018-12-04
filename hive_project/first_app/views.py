@@ -23,17 +23,29 @@ def login(request):
 @login_required
 def all_profiles(request):
 	users = User.objects.all()
-	return render(request, 'profile/all_profiles.html', {'users': users})
+	userprofileinfo = UserProfileInfo.objects.get(user=request.user)
+	following = userprofileinfo.following.all()
+	return render(request, 'profile/all_profiles.html', {'users': users, 'following':following})
 
 @login_required
-def following(request, user_id):
-	user_logged_in= request.user
-	user_followed= User.objects.get(id=user_id)
-	profile1=UserProfileInfo.objects.get(user=user_logged_in)
+def follow(request, user_id):
+	user_logged_in = request.user
+	user_followed = User.objects.get(id=user_id)
+	profile1 = UserProfileInfo.objects.get(user=user_logged_in)
 	profile1.following.add(user_followed)
 	profile1.save()
 
 	return  redirect(reverse('profile_app:all_profiles'))
+
+@login_required
+def unfollow(request, user_id):
+	user_logged_in = request.user
+	user_followed = User.objects.get(id=user_id)
+	profile1 = UserProfileInfo.objects.get(user=user_logged_in)
+	profile1.following.remove(user_followed)
+	profile1.save()
+
+	return  redirect(reverse('profile_app:all_profiles'))	
 
 
 
