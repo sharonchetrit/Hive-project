@@ -21,6 +21,24 @@ def login(request):
 	return render(request, 'login.html')
 
 @login_required
+def all_profiles(request):
+	users = User.objects.all()
+	return render(request, 'profile/all_profiles.html', {'users': users})
+
+@login_required
+def following(request, user_id):
+	user_logged_in= request.user
+	user_followed= User.objects.get(id=user_id)
+	profile1=UserProfileInfo.objects.get(user=user_logged_in)
+	profile1.following.add(user_followed)
+	profile1.save()
+
+	return  redirect(reverse('profile_app:all_profiles'))
+
+
+
+
+@login_required
 def view_profile(request):
 	# args = {'user':request.user}
 	user = User.objects.get(id=request.user.id)
@@ -70,62 +88,6 @@ def signup(request):
 
 def logged_out(request):
 	return render (request, 'registration/logout.html')
-
-def following(request):
-	user_profile = UserProfileInfo.objects.get(id=request.user.id)
-	following = user_profile.following.all()
-	profiles = UserProfileInfo.objects.all()
-	for profile in profiles:
-		if profile.user in following:
-			profile.is_followed_by_me = True
-	return render(request, 'users_profiles.html', {
-		'profiles': profiles,
-		'following': following
-	})
-
-def follow (request):
-	pass
-	# add user_profile_id insede bracket
-
-	
-	# get user from request 
-
- #    if request.method == 'POST':
- #    	if request.user.is_authenticated():
- #        	user_logged_in_id = request.user.id
-
- #        	if user_form.is_valid() and profile_form.is_valid():
-	# # get user profile from user - 1
-	# # get U.P to follow from parameter -2
-	# # add following 1 on 2
-	# pass
-
-
-
-
-# def signup(request):
-#   if request.method == 'POST':
-#       form = forms.SignUpForm(request.POST)
-#       if form.is_valid():
-#           form.save()
-#           username = form.cleaned_data.get('username')
-#           raw_password = form.cleaned_data.get('password1')
-#           user = authenticate(username=username, password=raw_password)
-#           login(request, user)
-#           return HttpResponse('Congratulation ! you created an account !')
-#   else:
-#       form = forms.SignUpForm()
-
-#   return render(request, 'signup.html', {'form': form})
-
-# def user_login(request):
-#   context = {}
-#   if request.method == 'POST':
-#       pass
-#   else:
-#       return render(request, "login.html", context)
-
-
 
 
 
@@ -230,4 +192,51 @@ def post_list(request):
 
 def post_detail(request):
     pass
+
+
+
+
+
+
+# add user_profile_id insede bracket
+
+	
+	# get user from request 
+
+ #    if request.method == 'POST':
+ #    	if request.user.is_authenticated():
+ #        	user_logged_in_id = request.user.id
+
+ #        	if user_form.is_valid() and profile_form.is_valid():
+	# # get user profile from user - 1
+	# # get U.P to follow from parameter -2
+	# # add following 1 on 2
+	# pass
+
+
+
+
+# def signup(request):
+#   if request.method == 'POST':
+#       form = forms.SignUpForm(request.POST)
+#       if form.is_valid():
+#           form.save()
+#           username = form.cleaned_data.get('username')
+#           raw_password = form.cleaned_data.get('password1')
+#           user = authenticate(username=username, password=raw_password)
+#           login(request, user)
+#           return HttpResponse('Congratulation ! you created an account !')
+#   else:
+#       form = forms.SignUpForm()
+
+#   return render(request, 'signup.html', {'form': form})
+
+# def user_login(request):
+#   context = {}
+#   if request.method == 'POST':
+#       pass
+#   else:
+#       return render(request, "login.html", context)
+
+
 
