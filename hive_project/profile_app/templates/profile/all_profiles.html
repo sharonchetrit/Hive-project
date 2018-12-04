@@ -9,14 +9,14 @@
 
 <title>all profiles</title>
 
-    <h1>raph</h1>
+    <h2>Let's make new friends</h2>
 
     
     {% for user in users %}
 
 	    <div class ="all_profiles">
-	      <p>{{ user.username }}</p>
-	      <h5> prenom:{{ user.first_name }}  nom:  {{ user.last_name }} </h5>
+	      <p><a href="{% url 'profile_app:users_profiles' user.id %}">{{ user.username }}</a></p>
+	      <h5> prenom: {{ user.first_name }}  nom: {{ user.last_name }} </h5>
 	      {% if user in following%}
 	      <h5><a href="{% url 'first_app:unfollow' user.id %}"> Unfollow </a></h5>
 	      {% else %}

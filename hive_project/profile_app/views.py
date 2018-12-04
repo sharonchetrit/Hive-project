@@ -79,3 +79,19 @@ def account_edit(request):
 		'profile_form': profile_form, 
 		'password_form': password_form
 		})
+
+def users_profiles(request, user_id):
+	user = User.objects.get(id=user_id)
+	profile = UserProfileInfo.objects.get(user=user)
+	posts = Post.objects.filter(user=profile)
+
+	return render (request, 'profile/users_profiles.html', {'user':user, 'profile':profile, 'posts':posts})
+	
+
+
+
+
+
+
+
+
