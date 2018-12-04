@@ -25,10 +25,10 @@ def view_profile(request):
 	user_id = request.user.id
 	user = User.objects.get(id=request.user.id)
 	profile = UserProfileInfo.objects.get(user=user)
-	post = Post.objects.get(id=user_id)
+	posts = Post.objects.get(id=user_id)
 
 
-	return render(request, 'profile/profile.html', {'profile': profile, 'post': post})
+	return render(request, 'profile/profile.html', {'profile': profile, 'posts': posts})
 
 def signup(request):
 	registered = False
