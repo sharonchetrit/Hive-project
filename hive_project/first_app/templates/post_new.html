@@ -1,0 +1,16 @@
+{%extends "base.html"%}
+
+
+{% block header_title %}Timeline{% endblock %}
+{% block content %}
+
+
+  <h1>Post for {{ user.username }}</h1>
+  <form method='POST'>
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input type="submit" name="send" value= "Post" class="btn btn-outline-primary">
+
+  </form>
+
+ {% endblock %}

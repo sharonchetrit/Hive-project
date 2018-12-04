@@ -7,7 +7,7 @@ ul {
     margin: 0px;
     padding: 10px;
     overflow: hidden;
-    background-color: #787878;
+    background-color: #FF4500;
     color: white;
     border-radius: 5px;
     border-style: double;
@@ -22,10 +22,11 @@ ul {
     
 }
 
-.signup, .login, .logout {
+.signup, .login, .logout, .edit_profile, .edit_post{
 	float: right;
 	margin: 10px 0px;
 	margin-right: 30px;
 
 }
+
 
