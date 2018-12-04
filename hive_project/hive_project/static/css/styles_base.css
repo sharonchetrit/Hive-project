@@ -22,7 +22,9 @@ ul {
     
 }
 
-.signup, .login, .logout, .edit_profile, .edit_post{
+
+.signup, .login, .logout, .profile, .all_users, .edit_profile, .edit_post {
+
 	float: right;
 	margin: 10px 0px;
 	margin-right: 30px;

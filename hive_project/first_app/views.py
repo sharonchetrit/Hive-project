@@ -38,7 +38,6 @@ def follow(request, user_id):
 
 	return  redirect(reverse('profile_app:all_profiles'))
 
-
 @login_required
 def unfollow(request, user_id):
 	user_logged_in = request.user
@@ -49,6 +48,15 @@ def unfollow(request, user_id):
 
 	return  redirect(reverse('profile_app:all_profiles'))	
 
+
+@login_required
+def view_profile(request):
+	# args = {'user':request.user}
+	user = User.objects.get(id=request.user.id)
+	profile = UserProfileInfo.objects.get(user=user)
+	posts = Post.objects.filter(user=profile)
+
+	return render(request, 'profile/profile.html', {'profile': profile})
 
 def signup(request):
 	registered = False
