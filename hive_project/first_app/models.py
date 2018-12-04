@@ -14,7 +14,8 @@ class UserProfileInfo(models.Model):
 		return "<User {}>".format(self.user.username)
 
 	def __str__(self):
-		return "{}".format(self.user.email)
+		return self.user.username
+
 
 class Post(models.Model):
 	text = models.CharField(max_length=500)
@@ -27,5 +28,4 @@ class Post(models.Model):
 	def __str__(self):
 		return self.text
 
-class Friend(models.Model):
-	users = models.ManyToManyField(User, symmetrical=False )
+

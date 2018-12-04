@@ -10,6 +10,7 @@
   <title>{% block header_title %}{% endblock %}</title>
 </head>
 <body>
+	<a href="{% url 'first_app:post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
 
 <ul>
   <li class="logo"><a href="{%url 'first_app:index' %}">LOGO</a></li>

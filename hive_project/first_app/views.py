@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from . import forms
 from first_app.models import UserProfileInfo, Post
@@ -8,6 +8,9 @@ from django.urls import reverse
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+
+
 # from django.forms import formset_factory, BaseFormSet
 
 def index(request):
@@ -16,6 +19,36 @@ def index(request):
 
 def login(request):
 	return render(request, 'login.html')
+
+@login_required
+def all_profiles(request):
+	users = User.objects.all()
+	userprofileinfo = UserProfileInfo.objects.get(user=request.user)
+	following = userprofileinfo.following.all()
+	return render(request, 'profile/all_profiles.html', {'users': users, 'following':following})
+
+@login_required
+def follow(request, user_id):
+	user_logged_in = request.user
+	user_followed = User.objects.get(id=user_id)
+	profile1 = UserProfileInfo.objects.get(user=user_logged_in)
+	profile1.following.add(user_followed)
+	profile1.save()
+
+	return  redirect(reverse('profile_app:all_profiles'))
+
+@login_required
+def unfollow(request, user_id):
+	user_logged_in = request.user
+	user_followed = User.objects.get(id=user_id)
+	profile1 = UserProfileInfo.objects.get(user=user_logged_in)
+	profile1.following.remove(user_followed)
+	profile1.save()
+
+	return  redirect(reverse('profile_app:all_profiles'))	
+
+
+
 
 @login_required
 def view_profile(request):
@@ -67,63 +100,6 @@ def signup(request):
 
 def logged_out(request):
 	return render (request, 'registration/logout.html')
-
-def following(request):
-	user_profile = UserProfileInfo.objects.get(id=request.user.id)
-	following = user_profile.following.all()
-	profiles = UserProfileInfo.objects.all()
-	for profile in profiles:
-		if profile.user in following:
-			profile.is_followed_by_me = True
-	return render(request, 'users_profiles.html', {
-		'profiles': profiles,
-		'following': following
-	})
-
-def follow (request):
-	pass
-	
-
-	# add user_profile_id insede bracket
-
-	
-	# get user from request 
-
- #    if request.method == 'POST':
- #    	if request.user.is_authenticated():
- #        	user_logged_in_id = request.user.id
-
- #        	if user_form.is_valid() and profile_form.is_valid():
-	# # get user profile from user - 1
-	# # get U.P to follow from parameter -2
-	# # add following 1 on 2
-	# pass
-
-
-
-
-# def signup(request):
-#   if request.method == 'POST':
-#       form = forms.SignUpForm(request.POST)
-#       if form.is_valid():
-#           form.save()
-#           username = form.cleaned_data.get('username')
-#           raw_password = form.cleaned_data.get('password1')
-#           user = authenticate(username=username, password=raw_password)
-#           login(request, user)
-#           return HttpResponse('Congratulation ! you created an account !')
-#   else:
-#       form = forms.SignUpForm()
-
-#   return render(request, 'signup.html', {'form': form})
-
-# def user_login(request):
-#   context = {}
-#   if request.method == 'POST':
-#       pass
-#   else:
-#       return render(request, "login.html", context)
-
 
 
 
@@ -187,5 +163,93 @@ def account_edit(request):
 		'profile_form': profile_form, 
 		'password_form': password_form
 		})
+
+
+def post_new(request):
+    if request.method == 'POST':
+        form = forms.PostForm(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+
+            return redirect('first_app:post_detail', pk=post.pk)
+
+    else:
+        form = forms.PostForm()
+    return render(request, 'post_edit.html', {'form': form})
+
+
+def post_edit(request):
+    post = forms.PostForm(request.POST)
+    if request.method == 'POST':
+        form = forms.PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('first_app:post_detail')
+    else:
+        form = forms.PostForm(request.post)
+    return render(request, 'post_edit.html', {'form': form})
+
+
+
+
+def post_list(request):
+    pass
+
+
+def post_detail(request):
+    pass
+
+
+
+
+
+
+# add user_profile_id insede bracket
+
+	
+	# get user from request 
+
+ #    if request.method == 'POST':
+ #    	if request.user.is_authenticated():
+ #        	user_logged_in_id = request.user.id
+
+ #        	if user_form.is_valid() and profile_form.is_valid():
+	# # get user profile from user - 1
+	# # get U.P to follow from parameter -2
+	# # add following 1 on 2
+	# pass
+
+
+
+
+# def signup(request):
+#   if request.method == 'POST':
+#       form = forms.SignUpForm(request.POST)
+#       if form.is_valid():
+#           form.save()
+#           username = form.cleaned_data.get('username')
+#           raw_password = form.cleaned_data.get('password1')
+#           user = authenticate(username=username, password=raw_password)
+#           login(request, user)
+#           return HttpResponse('Congratulation ! you created an account !')
+#   else:
+#       form = forms.SignUpForm()
+
+#   return render(request, 'signup.html', {'form': form})
+
+# def user_login(request):
+#   context = {}
+#   if request.method == 'POST':
+#       pass
+#   else:
+#       return render(request, "login.html", context)
+
 
 
