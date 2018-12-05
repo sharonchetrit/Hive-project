@@ -1,5 +1,5 @@
 body {
-	background-color: #C0C0C0;
+	background-color: white;
 }
 
 ul {
@@ -7,10 +7,11 @@ ul {
     margin: 0px;
     padding: 10px;
     overflow: hidden;
-    background-color: #FF4500;
+    background-color: #4169E1;
     color: white;
     border-radius: 5px;
-    border-style: double;
+    border-style: solid;
+    border-color: black;
     height: 40px;
 
 }
@@ -30,3 +31,7 @@ ul {
 }
 
 
+.logo img {
+    width: 50%;
+    height: auto;
+}
