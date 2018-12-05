@@ -1,0 +1,28 @@
+{%extends "base.html"%}
+
+{% block header_title %}Profile{% endblock %}
+{% block content %}
+<div class="container">
+		<h1>{{ user.username }}  Profile</h1>
+		
+
+	
+		<p>Full Name : {{ profile.user.first_name }} {{ profile.user.last_name }}</p>
+		<p>email : {{ user.email }}</p>
+		<p>bio : {{ profile.bio }}</p>
+		<img src="getthepix">
+
+
+	{% for post in posts %}
+	<p>{{post.text}}</p>
+	<p>{{post.date}}</p>
+	<br>
+
+	{% endfor %}
+</div>
+
+
+		
+</div>
+
+{% endblock %}

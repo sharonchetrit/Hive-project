@@ -32,23 +32,31 @@ def all_profiles(request):
 def follow(request, user_id):
 	user_logged_in = request.user
 	user_followed = User.objects.get(id=user_id)
-	profile1 = UserProfileInfo.objects.get(user=user_logged_in)
-	profile1.following.add(user_followed)
-	profile1.save()
+	profile_user_logged_in = UserProfileInfo.objects.get(user=user_logged_in)
+	profile_user_logged_in.following.add(user_followed)
+	profile_user_logged_in.save()
 
-	return  redirect(reverse('profile_app:all_profiles'))
-
+	return  redirect(reverse('first_app:all_profiles'))
 
 @login_required
 def unfollow(request, user_id):
 	user_logged_in = request.user
 	user_followed = User.objects.get(id=user_id)
-	profile1 = UserProfileInfo.objects.get(user=user_logged_in)
-	profile1.following.remove(user_followed)
-	profile1.save()
+	profile_user_logged_in = UserProfileInfo.objects.get(user=user_logged_in)
+	profile_user_logged_in.following.remove(user_followed)
+	profile_user_logged_in.save()
 
-	return  redirect(reverse('profile_app:all_profiles'))	
+	return  redirect(reverse('first_app:all_profiles'))	
 
+
+@login_required
+def view_profile(request):
+	# args = {'user':request.user}
+	user = User.objects.get(id=request.user.id)
+	profile = UserProfileInfo.objects.get(user=user)
+	posts = Post.objects.filter(user=profile)
+
+	return render(request, 'profile/profile.html', {'profile': profile})
 
 def signup(request):
 	registered = False
@@ -130,18 +138,6 @@ def post_edit(request):
 	else:
 		post_form = forms.PostForm(instance=request.user)
 	return render(request, 'post_edit.html', {'post_form': post_form})
-
-def following(request):
-	user_profile = UserProfileInfo.objects.get(id=request.user.id)
-	following = user_profile.following.all()
-	profiles = UserProfileInfo.objects.all()
-	for profile in profiles:
-		if profile.user in following:
-			profile.is_followed_by_me = True
-	return render(request, 'users_profiles.html', {
-		'profiles': profiles,
-		'following': following
-	})
 
 
 

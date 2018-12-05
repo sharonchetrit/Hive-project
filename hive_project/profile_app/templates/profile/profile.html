@@ -5,10 +5,23 @@
 <div class="container">
 		<h1>Profile</h1>
 		
-		<p>first_name: {{ profile.user.first_name }}</p>
-		<p>last_name: {{ profile.user.last_name }}</p>
-		<p>email: {{ profile.user.email }}</p>
-		<p>bio: {{ profile.bio }}</p>
+
+		<p>{{ profile.user.username }}</p>
+		<p>{{ profile.first_name }}</p>
+		<p>{{ profile.user.last_name }}</p>
+		<p>{{ user.email }}</p>
+		<p>{{ profile.bio }}</p>
+		<img src="getthepix">
+
+
+	{% for post in posts %}
+	<p>gars sur</p>
+	<p>{{post.text}}</p>
+	<p>{{post.date}}</p>
+
+	{% endfor %}
+</div>
+
 
 		{% for post in posts %}
 		<p>{{ post.text }}</p>
