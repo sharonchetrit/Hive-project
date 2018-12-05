@@ -105,8 +105,8 @@ def logged_out(request):
 @login_required
 def post_new(request):
 	user_id = request.user.id
-	user1 = User.objects.get(id=user_id)
-	user = UserProfileInfo.objects.get(user=user1)
+	user = User.objects.get(id=user_id)
+	profile = UserProfileInfo.objects.get(user=user)
 	form = forms.PostForm()
 
 	if request.method == 'POST':
@@ -114,8 +114,7 @@ def post_new(request):
 
 		if form.is_valid():
 			text = form.cleaned_data['text']
-			post = Post(text=text, user=user, date=datetime.datetime.now())
-			user.save()
+			post = Post(text=text, profile=profile, date=datetime.datetime.now())
 			post.save()
 
 			return redirect('first_app:index')
