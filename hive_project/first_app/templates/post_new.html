@@ -4,13 +4,16 @@
 {% block header_title %}Timeline{% endblock %}
 {% block content %}
 
+<div class="h2-title">
+	<h2>Post for {{ user.username }}</h2>
 
-  <h1>Post for {{ user.username }}</h1>
+</div>
+
+<div class="new-post">
   <form method='POST'>
     {{ form.as_p }}
     {% csrf_token %}
     <input type="submit" name="send" value= "Post" class="btn btn-outline-primary">
-
   </form>
-
+</div>
  {% endblock %}

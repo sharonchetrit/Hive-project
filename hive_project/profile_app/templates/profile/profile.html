@@ -2,30 +2,21 @@
 
 {% block header_title %}Profile{% endblock %}
 {% block content %}
-<div class="container">
+<div class="profile">
 		<h1>Profile</h1>
 		
-
-		<p>{{ profile.user.username }}</p>
-		<p>{{ profile.first_name }}</p>
-		<p>{{ profile.user.last_name }}</p>
-		<p>{{ user.email }}</p>
-		<p>{{ profile.bio }}</p>
-		<img src="getthepix">
+		<p>first_name: {{ profile.user.first_name }}</p>
+		<p>last_name: {{ profile.user.last_name }}</p>
+		<p>email: {{ profile.user.email }}</p>
+		<p>bio: {{ profile.bio }}</p>
 
 
-	{% for post in posts %}
-	<p>gars sur</p>
-	<p>{{post.text}}</p>
-	<p>{{post.date}}</p>
-
-	{% endfor %}
-</div>
-
-
+		<h2>Posts</h2>
 		{% for post in posts %}
-		<p>{{ post.text }}</p>
+			<p>{{ post.text }}</p>
+			<br>
+		{% endfor %}
+
 </div>
 
-{% endfor %}
 {% endblock %}

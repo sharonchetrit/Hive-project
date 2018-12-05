@@ -1,43 +1,103 @@
-body {
-	background-color: (46, 74, 94);
+* {
+    margin: 0;
+    padding: 0;
 }
 
-ul {
-    width: 100%;
-    list-style-type: none;
-    margin: 0px;
-    padding: 10px;
-    overflow: hidden;
-    background-color: #2e4a5e;
-    color: white;
-    border-radius: 5px;
-    border-style: solid;
-    border-color: black;
-    height: 40px;
 
+.navbar.navbar-expand-lg.navbar-light.bg-light{
+    background-color: #2e4a5e!important;
 }
 
-.logo {
+
+
+.logo img{
     float: left;
-    margin: 10px 0px;
-    margin-left: 60px;
+    margin: -25p;
+    width: 100px;
+    height: 100px;
     
 }
 
-
-.signup, .login, .logout, .profile, .all_users, .edit_profile, .edit_post {
-
-	float: right;
-	margin: 10px 0px;
-	margin-right: 30px;
-
+.nav-link {
+	float: left;
+	margin: 20px 8px;  
+    padding: 20px;
+    font-size: 100%; 
+    color: #ff7100!important;
 }
 
 
-.logo img {
-    width: 10%;
-    display:block;
-    margin-left:10px;
-    margin-bottom: auto;
-    
+.nav-link:hover {
+    color: white!important;
+}
+
+.tweet{
+    border: 1px solid;
+    margin: 5%;
+    padding: 2%;
+    border-radius: 5px;
+
+}
+
+.tweet-date{
+    float: right;
+}
+
+.post-username{
+    margin-top: 20px;
+}
+
+.following{
+    width: 50%;
+    border: 2px solid;
+    margin: 20px 25%;
+    padding: 20px;
+    border-radius: 5px;
+    color: #ff7100!important;
+    background-color: #2e4a5e!important;
+}
+
+.follow{
+    float: right;
+    padding-bottom: 50px;!important;
+}
+
+.unfollow{
+    float: right;
+}
+
+.all_profiles{
+    width: 70%;
+    border: 2px solid;
+    margin: 20px 15%;
+    padding: 20px;
+    border-radius: 5px;
+    color: #ff7100!important;
+    background-color: #2e4a5e!important;
+}
+
+.h2-title{
+    color: black;
+    text-align: center;
+}
+
+.profile, .edit-profile{
+    width: 50%;
+    height: 500px;
+    border: 2px solid;
+    margin: 20px 25%;
+    padding: 20px;
+    color: #ff7100!important;
+    background-color: #2e4a5e!important;
+
+}
+
+.new-post{
+    width: 60%;
+    height: 500px;
+    border: 2px solid;
+    margin: 20px 20%;
+    padding: 20px;
+    color: #ff7100!important;
+    background-color: #2e4a5e!important;
 }

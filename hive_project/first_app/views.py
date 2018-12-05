@@ -15,6 +15,7 @@ from django.utils import timezone
 
 def index(request):
 	posts = Post.objects.all().order_by('-date')[:30]
+	print(posts)
 	return render(request, 'index.html', { 'posts': posts })
 
 def login(request):
@@ -36,7 +37,7 @@ def follow(request, user_id):
 	profile_user_logged_in.following.add(user_followed)
 	profile_user_logged_in.save()
 
-	return  redirect(reverse('first_app:all_profiles'))
+	return redirect(reverse('first_app:all_profiles'))
 
 @login_required
 def unfollow(request, user_id):
@@ -46,15 +47,31 @@ def unfollow(request, user_id):
 	profile_user_logged_in.following.remove(user_followed)
 	profile_user_logged_in.save()
 
-	return  redirect(reverse('first_app:all_profiles'))	
+	return redirect(reverse('first_app:all_profiles'))	
 
+@login_required
+def following(request):
+	user_logged_in = request.user
+	profile_user_logged_in = UserProfileInfo.objects.get(user=user_logged_in)
+	following = profile_user_logged_in.following.all()
+
+	return render(request, 'following.html', {'following': following})
+
+
+@login_required
+def followers(request):
+	user_logged_in = request.user
+	profile_user_logged_in = UserProfileInfo.objects.get(user=user_logged_in)
+	followers = profile_user_logged_in.following.all()
+
+	return render(request, 'followers.html', {'followers':followers})
 
 @login_required
 def view_profile(request):
 	# args = {'user':request.user}
 	user = User.objects.get(id=request.user.id)
 	profile = UserProfileInfo.objects.get(user=user)
-	posts = Post.objects.filter(user=profile)
+	posts = Post.objects.filter(profile=profile)
 
 	return render(request, 'profile/profile.html', {'profile': profile})
 
@@ -81,7 +98,7 @@ def signup(request):
 			profile.save()
 			registered = True
 
-			return redirect(reverse('first_app:index'))
+			return redirect(reverse('first_app:all_profiles'))
 
 		else:
 			print(user_form.errors, profile_form.errors)

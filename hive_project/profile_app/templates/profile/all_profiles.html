@@ -1,26 +1,29 @@
 {%extends "base.html"%}
 
-<h1>All profiles</h1>
-
 {% block header_title %}All Followers{% endblock %}
-
 
 {% block content %}
 
-<title>all profiles</title>
-
-    <h2>Let's make new friends</h2>
-
+	<div class="h2-title">
+		<h2>Let's make new friends</h2>	
+	</div>
     
+
     {% for user in users %}
+
 
 	    <div class ="all_profiles">
 	      <p><a href="{% url 'profile_app:users_profiles' user.id %}">{{ user.username }}</a></p>
-	      <h5> prenom: {{ user.first_name }}  nom: {{ user.last_name }} </h5>
+	      <h5> {{ user.first_name }} {{ user.last_name }} </h5>
 	      {% if user in following%}
+	      <div class="unfollow">
 	      <h5><a href="{% url 'first_app:unfollow' user.id %}"> Unfollow </a></h5>
+	      </div>
+	      <br>
 	      {% else %}
+	      <div class="follow">
 	      <h5><a href="{% url 'first_app:follow' user.id %}"> Follow </a></h5>
+	      </div>
 	      <br>
 	      {% endif %}
 	    </div>

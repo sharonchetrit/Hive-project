@@ -1,28 +1,24 @@
 {%extends "base.html"%}
-
 <h1>HomePage</h1>
 
 {% block header_title %}All_Users{% endblock %}
 
-
 {% block content %}
 
 {% for profile in profiles %}
-    <div class ="users">
-      <p>{{ profile.user.id }}</p>
+<div class ="users">
+  <p>{{ profile.user.id }}</p>
+  <h5> {{ profile.bio }} </h5>
+  {% if profile.is_followed_by_me %}
+  
+  <button type="button" class="btn btn-default", name="button">UnFollow</button>
 
-      <h5> {{ profile.bio }} </h5>
+  {% else %}
 
-       {% if profile.is_followed_by_me %}
+  <button type="button" class="btn btn-default", name="button">Follow</button>
+  {% endif %}
+</div>
 
-       <button type="button" class="btn btn-default", name="button">UnFollow</button>
+{% endfor %}
 
-       {% else %}
-
-       <button type="button" class="btn btn-default", name="button">Follow</button>
-
-	{% endif %}
-	{% endfor %}
-    </div>
-	
 {% endblock %}
