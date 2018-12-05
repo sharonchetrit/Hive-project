@@ -32,7 +32,7 @@ def populate(N=10):
       fake_text  = fakegen.text(max_nb_chars=140)
       fake_date  = fakegen.date(pattern='%Y-%m-%d')
 
-      post = Post.objects.get_or_create(text=fake_text, date=fake_date, user=userprofile_info)[0]
+      post = Post.objects.get_or_create(text=fake_text, date=fake_date, profile=userprofile_info)[0]
 
 
 #def populate():
