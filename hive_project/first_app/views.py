@@ -32,9 +32,9 @@ def all_profiles(request):
 def follow(request, user_id):
 	user_logged_in = request.user
 	user_followed = User.objects.get(id=user_id)
-	profile1 = UserProfileInfo.objects.get(user=user_logged_in)
-	profile1.following.add(user_followed)
-	profile1.save()
+	profile_user_logged_in = UserProfileInfo.objects.get(user=user_logged_in)
+	profile_user_logged_in.following.add(user_followed)
+	profile_user_logged_in.save()
 
 	return  redirect(reverse('first_app:all_profiles'))
 
@@ -42,9 +42,9 @@ def follow(request, user_id):
 def unfollow(request, user_id):
 	user_logged_in = request.user
 	user_followed = User.objects.get(id=user_id)
-	profile1 = UserProfileInfo.objects.get(user=user_logged_in)
-	profile1.following.remove(user_followed)
-	profile1.save()
+	profile_user_logged_in = UserProfileInfo.objects.get(user=user_logged_in)
+	profile_user_logged_in.following.remove(user_followed)
+	profile_user_logged_in.save()
 
 	return  redirect(reverse('first_app:all_profiles'))	
 

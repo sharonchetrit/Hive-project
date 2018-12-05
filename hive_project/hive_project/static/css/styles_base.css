@@ -1,13 +1,14 @@
 body {
-	background-color: #C0C0C0;
+	background-color: white;
 }
 
 ul {
+    width: 100%;
     list-style-type: none;
     margin: 0px;
     padding: 10px;
     overflow: hidden;
-    background-color: #FF4500;
+    background-color: yellow;
     color: white;
     border-radius: 5px;
     border-style: double;
