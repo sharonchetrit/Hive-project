@@ -4,10 +4,14 @@
 
 {% block content %}
 
+<div class="h2-title">
+		<h2>People who follow you</h2>	
+	</div>
+
 {% for follower in followers %}
 <div class ="followers">
-  <p>{{ followers.first_name }} {{ followers.last_name }}</p>
-  <p>{{ profile_user_logged_in.bio }}</p>
+  <p>{{ follower.first_name }} {{ follower.last_name }}</p>
+
 
   <br>
 
