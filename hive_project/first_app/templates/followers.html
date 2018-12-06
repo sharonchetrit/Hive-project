@@ -1,0 +1,18 @@
+{%extends "base.html"%}
+
+{% block header_title %}{% endblock %}
+
+{% block content %}
+
+{% for follower in followers %}
+<div class ="followers">
+  <p>{{ followers.first_name }} {{ followers.last_name }}</p>
+  <p>{{ profile_user_logged_in.bio }}</p>
+
+  <br>
+
+</div>
+{% endfor %}
+
+
+{% endblock %}

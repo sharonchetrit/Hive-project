@@ -18,7 +18,7 @@ def view_profile(request):
 	user_id = request.user.id
 	user = User.objects.get(id=user_id)
 	profile = UserProfileInfo.objects.get(user=user)
-	posts = Post.objects.filter(user=profile)
+	posts = Post.objects.filter(profile=profile)
 
 	return render(request, 'profile.html', {'profile': profile, 'posts': posts})
 
@@ -83,7 +83,7 @@ def account_edit(request):
 def users_profiles(request, user_id):
 	user = User.objects.get(id=user_id)
 	profile = UserProfileInfo.objects.get(user=user)
-	posts = Post.objects.filter(user=profile)
+	posts = Post.objects.filter(profile=profile)
 
 	return render (request, 'profile/users_profiles.html', {'user':user, 'profile':profile, 'posts':posts})
 	

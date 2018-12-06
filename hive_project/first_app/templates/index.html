@@ -9,13 +9,15 @@
 
 <title>Home</title>
 
-    <h1>HomePage</h1>
-
     {% for post in posts %}
+
     <div class ="tweet">
+      <input type="submit" name="send" value= "Edit" class="btn btn-outline-primary">
       <p>{{ post.text }}</p>
-      <h5> {{ post.user.user.first_name }}_{{ post.user.user.last_name }} 
-        <span>- {{ post.date }}</span>
+      <h5> {{ post.profile.user.first_name }} {{ post.profile.user.last_name }} 
+        <div class="tweet-date"> 
+        {{ post.date }}
+    	</div>
       </h5>
     </div>
     {% endfor %}

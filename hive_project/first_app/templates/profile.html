@@ -2,14 +2,14 @@
 
 {% block header_title %}Profile{% endblock %}
 {% block content %}
-<div class="container">
-
+<div class="profile">
 		<h1>Profile</h1>
 		
 		<p>first_name: {{ profile.user.first_name }}</p>
 		<p>last_name: {{ profile.user.last_name }}</p>
 		<p>email: {{ profile.user.email }}</p>
 		<p>bio: {{ profile.bio }}</p>
+
 
 		<h2>Posts</h2>
 		{% for post in posts %}

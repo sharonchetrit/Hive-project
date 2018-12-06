@@ -1,40 +1,103 @@
-body {
-	background-color: white;
+* {
+    margin: 0;
+    padding: 0;
 }
 
-ul {
-    width: 100%;
-    list-style-type: none;
-    margin: 0px;
-    padding: 10px;
-    overflow: hidden;
-    background-color: #4169E1;
-    color: white;
-    border-radius: 5px;
-    border-style: solid;
-    border-color: black;
-    height: 40px;
-
+.navbar.navbar-expand-lg.navbar-light.bg-light{
+    background-color: #2e4a5e!important;
 }
 
-.logo {
+.logo img{
     float: left;
-    margin: 10px 0px;
-    margin-left: 60px;
-    
+    margin: -25p;
+    width: 100px;
+    height: 100px; 
 }
 
-
-.signup, .login, .logout, .profile, .all_users, .edit_profile, .edit_post {
-
-	float: right;
-	margin: 10px 0px;
-	margin-right: 30px;
-
+.nav-link {
+	float: left;
+	margin: 20px 8px;  
+    padding: 20px;
+    font-size: 100%; 
+    color: #ff7100!important;
 }
 
+.nav-link:hover {
+    color: white!important;
+}
 
-.logo img {
+.tweet-date{
+    float: right;
+}
+
+.post-username{
+    margin-top: 20px;
+}
+
+.following{
     width: 50%;
-    height: auto;
+    border: 2px solid;
+    margin: 20px 25%;
+    padding: 20px;
+    border-radius: 5px;
+    color: #ff7100!important;
+    background-color: #2e4a5e!important;
+}
+
+.tweet{
+    width: 70%;
+    border: 2px solid;
+    margin: 20px 15%;
+    padding: 20px;
+    border-radius: 5px;
+    color: #ff7100!important;
+    background-color: #2e4a5e!important;
+}
+
+.follow{
+    float: right;
+    padding-bottom: 50px;!important;
+}
+
+.unfollow{
+    float: right;
+}
+
+.all_profiles{
+    width: 70%;
+    border: 2px solid;
+    margin: 20px 15%;
+    padding: 20px;
+    border-radius: 5px;
+    color: #ff7100!important;
+    background-color: #2e4a5e!important;
+}
+
+.h2-title{
+    color: black;
+    text-align: center;
+}
+
+.profile, .edit-profile, .signup{
+    width: 50%;
+    height: 500px;
+    border: 2px solid;
+    margin: 20px 25%;
+    padding: 20px;
+    color: #ff7100!important;
+    background-color: #2e4a5e!important;
+}
+
+.new-post{
+    width: 60%;
+    height: 500px;
+    border: 2px solid;
+    margin: 20px 20%;
+    padding: 20px;
+    color: #ff7100!important;
+    background-color: #2e4a5e!important;
+}
+
+.login{
+
 }

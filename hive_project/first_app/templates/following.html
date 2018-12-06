@@ -1,0 +1,20 @@
+{%extends "base.html"%}
+
+{% block header_title %}{% endblock %}
+
+{% block content %}
+<div class="h2-title">
+		<h2>People you following</h2>	
+	</div>
+{% for follow in following %}
+<div class ="following">
+  <p>{{ follow.first_name }} {{ follow.last_name }}</p>
+  <p>{{ follow.}}</p>
+
+  <br>
+
+</div>
+{% endfor %}
+
+
+{% endblock %}
