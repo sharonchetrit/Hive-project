@@ -3,19 +3,15 @@
     padding: 0;
 }
 
-
 .navbar.navbar-expand-lg.navbar-light.bg-light{
     background-color: #2e4a5e!important;
 }
-
-
 
 .logo img{
     float: left;
     margin: -25p;
     width: 100px;
-    height: 100px;
-    
+    height: 100px; 
 }
 
 .nav-link {
@@ -26,17 +22,8 @@
     color: #ff7100!important;
 }
 
-
 .nav-link:hover {
     color: white!important;
-}
-
-.tweet{
-    border: 1px solid;
-    margin: 5%;
-    padding: 2%;
-    border-radius: 5px;
-
 }
 
 .tweet-date{
@@ -51,6 +38,16 @@
     width: 50%;
     border: 2px solid;
     margin: 20px 25%;
+    padding: 20px;
+    border-radius: 5px;
+    color: #ff7100!important;
+    background-color: #2e4a5e!important;
+}
+
+.tweet{
+    width: 70%;
+    border: 2px solid;
+    margin: 20px 15%;
     padding: 20px;
     border-radius: 5px;
     color: #ff7100!important;
@@ -81,7 +78,7 @@
     text-align: center;
 }
 
-.profile, .edit-profile{
+.profile, .edit-profile, .signup{
     width: 50%;
     height: 500px;
     border: 2px solid;
@@ -89,7 +86,6 @@
     padding: 20px;
     color: #ff7100!important;
     background-color: #2e4a5e!important;
-
 }
 
 .new-post{
@@ -100,4 +96,8 @@
     padding: 20px;
     color: #ff7100!important;
     background-color: #2e4a5e!important;
+}
+
+.login{
+
 }

@@ -27,6 +27,10 @@
         {% if user.is_authenticated%}
       <li><a class="nav-link" href="{% url 'logout' %}">Logout<span class="sr-only">(current)</span></a></li>
       <li><a class="nav-link" href="{% url 'first_app:all_profiles' %}">Friends</a><span class="sr-only">(current)</span></a></li>
+    <!-- <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+      <li><a class="nav-item" href="{% url 'profile_app:view_profile' %}">Dropdown link</a></li>
+      <li><a class="dropdown-item" href="{% url 'profile_app:edit_profile' %}">Dropdown link</a></li>
+    </div> -->
       <li><a class="nav-link" href="{% url 'profile_app:view_profile' %}">Profil</a></li>
       <li><a class="nav-link" href="{% url 'profile_app:edit_profile' %}">Edit Profil</a></li>
       <li><a class="nav-link" href="{% url 'first_app:post_edit'%}">Edit Post</a></li>

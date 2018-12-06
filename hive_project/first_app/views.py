@@ -141,17 +141,16 @@ def post_new(request):
 
 @login_required
 def post_edit(request):
-	# post = forms.PostForm(request.POST, instance=request.user)
 	if request.method == 'POST':
 		post_form = forms.PostForm(request.POST, instance=request.user)
 		if post_form.is_valid():
-			post = post_form.save(commit=False)
-			post.author = request.user
-			post.published_date = timezone.now()
-			post.save()
-			return redirect('first_app:post_edit')
+			# post = post_form.save(commit=False)
+			# post.author = request.user
+			# post.published_date = timezone.now()
+			post_form.save()
+			return redirect(reverse('first_app:index'))
 		else:
-			return HttpResponse('You cannot work')
+			return HttpResponse('cannot work')
 	else:
 		post_form = forms.PostForm(instance=request.user)
 	return render(request, 'post_edit.html', {'post_form': post_form})
