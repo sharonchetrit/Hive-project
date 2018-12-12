@@ -10,13 +10,14 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 import datetime
 from django.utils import timezone
+import json
 
 
 
 def index(request):
 	posts = Post.objects.all().order_by('-date')[:30]
 	print(posts)
-	return render(request, 'index.html', { 'posts': posts })
+	return render(request, 'index.html', { 'posts': posts, 'form': forms.PostForm() })
 
 def login(request):
 	return render(request, 'login.html')
@@ -121,23 +122,52 @@ def logged_out(request):
 
 @login_required
 def post_new(request):
-	user_id = request.user.id
-	user = User.objects.get(id=user_id)
-	profile = UserProfileInfo.objects.get(user=user)
-	form = forms.PostForm()
-
+	
 	if request.method == 'POST':
-		form = forms.PostForm(data=request.POST)
+		text = request.POST.get('text')
+		# date = request.POST.get('date')
 
-		if form.is_valid():
-			text = form.cleaned_data['text']
-			post = Post(text=text, profile=profile, date=datetime.datetime.now())
-			post.save()
+		user_id = request.user.id
+		user = User.objects.get(id=user_id)
+		profile = UserProfileInfo.objects.get(user=user)
 
-			return redirect('first_app:index')
+
+		post = Post(text=text, profile=profile)
+		post.save()
+
+		response_data = {
+			'result': 'success',
+			'id': post.id,
+			'text': post.text,
+			'date': post.date
+		}
+		print(response_data)
+		print('#####')
+		return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+
+	else:
+		error = { 'error': 'Non POST method not allowed' }
+		return HttpResponse(json.dumps(error), content_type='application/json')
+
+# user_id = request.user.id
+	# user = User.objects.get(id=user_id)
+	# profile = UserProfileInfo.objects.get(user=user)
+	# form = forms.PostForm()
+
+	# if request.method == 'POST':
+	# 	form = forms.PostForm(data=request.POST)
+
+	# 	if form.is_valid():
+	# 		text = form.cleaned_data['text']
+	# 		post = Post(text=text, profile=profile, date=datetime.datetime.now())
+	# 		post.save()
+
+	# 		return redirect('first_app:index')
 
 	
-	return render(request, 'post_new.html', {'form': form, 'user': user})
+	# return render(request, 'post_new.html', {'form': form, 'user': user})
+
 
 @login_required
 def post_edit(request):

@@ -40,7 +40,15 @@ class EditProfileForm(UserForm):
 class PostForm(forms.ModelForm):
 	class Meta:
 		model = Post
-		fields = ('text',)
+		fields = ('text', 'date')
+		widgets = {
+			'text': forms.TextInput(attrs={
+				'id': 'post-text', 
+				'required': True,
+				'placeholder': 'text',
+				}),
+		}
+
 
 	# def clean(self):
 	# 	all_clean_data = super().clean()

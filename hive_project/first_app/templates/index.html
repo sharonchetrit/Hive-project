@@ -2,12 +2,19 @@
 
 <h1>HomePage</h1>
 
+
 {% block header_title %}Homepage{% endblock %}
 
 
 {% block content %}
 
-<title>Home</title>
+<title>Articles</title>
+
+  <form action="" method="POST" id="article-form">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input type="submit" name="submit">
+  </form>
 
     {% for post in posts %}
 
