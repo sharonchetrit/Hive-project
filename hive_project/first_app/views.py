@@ -11,12 +11,13 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from django.utils import timezone
 import json
+from django.core.serializers.json import DjangoJSONEncoder
 
 
 
 def index(request):
 	posts = Post.objects.all().order_by('-date')[:30]
-	print(posts)
+	
 	return render(request, 'index.html', { 'posts': posts, 'form': forms.PostForm() })
 
 def login(request):
@@ -125,24 +126,33 @@ def post_new(request):
 	
 	if request.method == 'POST':
 		text = request.POST.get('text')
-		# date = request.POST.get('date')
+		date = datetime.datetime.now()
+	
 
 		user_id = request.user.id
 		user = User.objects.get(id=user_id)
+		print(user)
 		profile = UserProfileInfo.objects.get(user=user)
+		print(profile)
 
 
-		post = Post(text=text, profile=profile)
+		post = Post(text=text, date=date, profile=profile)
 		post.save()
+
 
 		response_data = {
 			'result': 'success',
 			'id': post.id,
 			'text': post.text,
-			'date': post.date
+			'profile': {
+				'first_name' : profile.user.first_name,
+				'last_name': profile.user.last_name,
+			},
+			'date': date.strftime('%y-%m-%d'),
 		}
 		print(response_data)
 		print('#####')
+
 		return HttpResponse(json.dumps(response_data), content_type='application/json')
 
 

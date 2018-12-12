@@ -14,6 +14,7 @@ function createArticle(){
 		type: 'POST',
 		data: {
 			text: $('#post-text').val(),
+
            
 		},
 		success: function(json) {
@@ -31,7 +32,7 @@ function createArticle(){
 function addArticle(post) {
 	var articleHTML = `
 		<p>`+post.text+`</p>
-      <h5>`+post.profile.user.first_name+` `+post.profile.user.last_name+`
+      <h5>`+post.profile.first_name+` `+post.profile.last_name+`
         <div class="tweet-date"> 
         `+post.date+`
         </div>
